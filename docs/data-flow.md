@@ -1,4 +1,3 @@
-```markdown
 # Data Flow
 
 ## User Operation Flow
