@@ -56,4 +56,16 @@ The system infrastructure was deployed on AWS and separated into multiple compon
 - **Database Layer**  
   - **MariaDB** is used for the admin platform database.  
   - **MSSQL** is used for the game service database.
-
+---
+## Communication Flow
+```mermaid
+sequenceDiagram
+Operator->>AdminWeb: Request operation (ex: item grant)
+AdminWeb->>InterfaceServer: Send API request
+InterfaceServer->>Bastion: Establish SSH tunnel
+Bastion->>GameServer: Forward command
+GameServer->>GameDB: Update game data
+GameServer-->>InterfaceServer: Response
+InterfaceServer-->>AdminWeb: Result
+AdminWeb-->>Operator: Operation completed
+```
