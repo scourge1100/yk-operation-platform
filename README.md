@@ -35,6 +35,10 @@ Frontend
 
 ## System Architecture
 
+See detailed architecture documentation:
+
+- [Architecture Overview](docs/architecture.md)
+
 ## Core Features
 
 - Game service administration tools
@@ -43,9 +47,21 @@ Frontend
 - Operational data management
 - Logging and monitoring integration
 
+- Detailed feature descriptions:
+
+- [Feature Documentation](docs/features.md)
+
 ## Data Flow
 
+See detailed system flow documentation:
+
+- [Data Flow Documentation](docs/data-flow.md)
+
 ## Database Design
+
+See detailed database design documentation:
+
+- [Database Design](docs/database-design.md)
 
 ## Key Achievements
 
