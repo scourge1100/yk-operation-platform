@@ -4,15 +4,14 @@
 
 ```mermaid
 graph TD
-    Operator[Game Operator] --> AdminUI[Admin Web Console]
 
-    AdminUI --> SpringAPI[Spring API Server]
+Operator[Game Operator] --> AdminWeb[Admin Web Platform]
 
-    SpringAPI --> MariaDB[(MariaDB)]
-    SpringAPI --> MSSQL[(MSSQL)]
+AdminWeb --> InterfaceServer[Interface Server]
 
-    SpringAPI --> S3[(AWS S3)]
+InterfaceServer --> GameServer[Game Server]
 
-    SpringAPI --> CloudWatch[CloudWatch Monitoring]
+AdminWeb --> AdminDB[(MariaDB)]
+GameServer --> GameDB[(MSSQL)]
 
-    GitLabCI[GitLab CI/CD] --> EC2[(AWS EC2 Deployment)]
+AdminWeb --> AWS[AWS Infrastructure]
