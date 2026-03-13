@@ -34,37 +34,26 @@ Bastion --> GameServer[Game Server Cluster]
 GameServer --> GameDB[(MSSQL - Game DB)]
 ```
 ---
-## Infrastructure Layout
-The infrastructure was deployed on AWS and organized into multiple layers to separate operational tools and game services.
+## Infrastructure
 
-### Admin Web Server
+The system infrastructure was deployed on AWS and separated into multiple components to ensure secure and stable operation of the game service.
 
-The admin web server provides the web-based interface used by game operators.  
-Operators can perform operational tasks such as managing announcements, granting items, and querying user data through this system.
+- **Admin Web Server**  
+  Provides the web interface used by game operators.  
+  Operators can perform tasks such as managing announcements, granting items, and querying user data.
 
-### Interface Server
+- **Interface Server**  
+  Acts as a gateway between the admin platform and the game servers.  
+  It receives requests from the admin platform and forwards operational commands to internal game servers.
 
-The interface server acts as a gateway between the admin platform and the game servers.
+- **Bastion Server**  
+  Provides secure access to internal infrastructure.  
+  Communication with game servers is performed through SSH tunneling via the bastion server.
 
-It receives operational requests from the admin platform and forwards them to the internal game servers using predefined API commands.
+- **Game Server Cluster**  
+  Hosts the core game services and processes operational commands from the admin platform.
 
-### Bastion Server
+- **Database Layer**  
+  - **MariaDB** is used for the admin platform database.  
+  - **MSSQL** is used for the game service database.
 
-The bastion server provides secure access to internal game infrastructure.
-
-The interface server communicates with game servers through SSH tunneling via the bastion server.
----
-## Network & Security
-Several security measures were applied to protect the game infrastructure and restrict unauthorized access.
-
-- The admin platform was accessible only from **whitelisted company IP addresses**.
-- All admin servers were deployed in **private subnets** to prevent direct public access.
-- Game servers were isolated from external networks and could not be accessed directly.
-- Access to internal game servers required **SSH tunneling through a bastion server**.
-- All operational commands were routed through the **interface server**, preventing direct communication with game servers.
-
-These measures ensured that the game infrastructure remained secure while still allowing operators to perform necessary administrative tasks.
-
-### Game Server Cluster
-
-The game server cluster hosts the core game services and processes operational commands such as item grants and event management.
