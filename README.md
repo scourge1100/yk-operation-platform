@@ -1,6 +1,7 @@
 # YK Operation Platform
 
 Architecture and system design documentation for a game operations admin platform developed for the MMORPG **열혈강호 W(The Ruler of The Land W)**.
+
 The game servers were isolated from external networks for security reasons, and all operational requests were routed through an interface server.
 
 ---
