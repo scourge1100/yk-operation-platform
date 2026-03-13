@@ -42,7 +42,8 @@ Frontend
 
 Detailed system design and architecture documentation:
 
-- [Project Background](docs/project-overview.md)
+- [Project Overview (EN)](docs/project-overview.md)
+- [Project Overview (KO)](docs/project-overview.ko.md)
 - [System Architecture](docs/architecture.md)
 - [Business Flow](docs/business-flow.md)
 - [Technical Decisions](docs/technical-decisions.md)
