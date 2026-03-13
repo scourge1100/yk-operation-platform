@@ -1,6 +1,6 @@
 # System Architecture
 
-This document describes the system architecture of the **Yeolhyeolgangho W Operations Platform**.
+This document describes the system architecture of the **The Ruler of The Land W Operations Platform**.
 
 ---
 
