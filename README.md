@@ -1,17 +1,22 @@
-# yk-operation-platform
-Architecture and system design documentation for a game operations admin platform.
+# YK Operation Platform
+
+Architecture and system design documentation for a game operations admin platform developed for the MMORPG **Yeolhyeolgangho W**.
+
+---
 
 ## Project Overview
 
-A web-based operations management platform developed to support live game service administration.
+A web-based operations management platform designed to support live game service administration.
 
-The system provides administrative tools for managing game service operations, user accounts, monitoring, and operational workflows.
+The platform provides tools for game operators to manage announcements, distribute in-game items, monitor user data, and perform operational tasks without direct server access.
+
+---
 
 ## Tech Stack
 
 Backend
 - Java
-- Spring Framework
+- Spring Framework (eGovFramework)
 - MyBatis
 
 Database
@@ -24,48 +29,30 @@ Infrastructure
 - AWS S3
 - AWS CloudWatch
 
-DevOps
-- GitLab CI/CD
-- Jira
-
 Frontend
-- JavaScript
-- JQuery
 - JSP
+- JavaScript
+- jQuery
 
-## System Architecture
+---
 
-See detailed architecture documentation:
+## Documentation
 
-- [Architecture Overview](docs/architecture.md)
+Detailed system design and architecture documentation:
 
-## Core Features
+- [Project Background](docs/project-overview.md)
+- [System Architecture](docs/architecture.md)
+- [Business Flow](docs/business-flow.md)
+- [Technical Decisions](docs/technical-decisions.md)
+- [My Contributions](docs/my-contributions.md)
+- [Troubleshooting](docs/troubleshooting.md)
 
-- Game service administration tools
-- Operator authentication and permission management
-- Service monitoring dashboard
-- Operational data management
-- Logging and monitoring integration
+---
 
-- Detailed feature descriptions:
+## Key Highlights
 
-- [Feature Documentation](docs/features.md)
-
-## Data Flow
-
-See detailed system flow documentation:
-
-- [Data Flow Documentation](docs/data-flow.md)
-
-## Database Design
-
-See detailed database design documentation:
-
-- [Database Design](docs/database-design.md)
-
-## Key Achievements
-
-- Improved operational efficiency for game service management
-- Reduced manual operational workload
-- Optimized AWS infrastructure cost and resource usage
-- Improved monitoring and operational response time
+- Web-based admin platform for live game service operations
+- Secure communication with game servers through an interface server
+- Multi-database integration (MariaDB + MSSQL)
+- Operator permission management and operation logging
+- AWS-based 3-tier architecture
