@@ -53,6 +53,17 @@ It receives operational requests from the admin platform and forwards them to th
 The bastion server provides secure access to internal game infrastructure.
 
 The interface server communicates with game servers through SSH tunneling via the bastion server.
+---
+## Network & Security
+Several security measures were applied to protect the game infrastructure and restrict unauthorized access.
+
+- The admin platform was accessible only from **whitelisted company IP addresses**.
+- All admin servers were deployed in **private subnets** to prevent direct public access.
+- Game servers were isolated from external networks and could not be accessed directly.
+- Access to internal game servers required **SSH tunneling through a bastion server**.
+- All operational commands were routed through the **interface server**, preventing direct communication with game servers.
+
+These measures ensured that the game infrastructure remained secure while still allowing operators to perform necessary administrative tasks.
 
 ### Game Server Cluster
 
