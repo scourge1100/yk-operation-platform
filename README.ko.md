@@ -107,8 +107,9 @@ Frontend
 
 ## 📄 상세 문서
 
-* [프로젝트 개요 (EN)](docs/project-overview.md)
-* [프로젝트 개요 (KO)](docs/project-overview.ko.md)
+> 모든 상세 문서는 한글 기준으로 작성되었습니다.
+
+* [프로젝트 개요](docs/project-overview.ko.md)
 * [시스템 아키텍처](docs/architecture.md)
 * [비즈니스 흐름](docs/business-flow.md)
 * [기술 의사결정](docs/technical-decisions.md)
