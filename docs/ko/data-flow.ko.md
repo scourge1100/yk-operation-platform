@@ -5,21 +5,29 @@
 ```mermaid
 sequenceDiagram
     participant Operator
-    participant AdminUI
-    participant API
+    participant JSP
+    participant Controller
+    participant Service
+    participant DAO
     participant DB
 
-    Operator->>AdminUI: 운영 데이터 조회 요청
-    AdminUI->>API: REST API 요청
-    API->>DB: 데이터 조회 쿼리 실행
-    DB-->>API: 조회 결과 반환
+    Operator->>JSP: 화면 요청 / 조회 요청
+    JSP->>Controller: 요청 전달
+    Controller->>Service: 비즈니스 로직 처리 요청
+    Service->>DAO: 데이터 조회 요청
+    DAO->>DB: SQL 실행
+    DB-->>DAO: 결과 반환
+    DAO-->>Service: 데이터 전달
+    Service-->>Controller: 처리 결과 반환
+    Controller-->>JSP: Model 전달
+    JSP-->>Operator: 화면 렌더링
 
     alt 데이터 없음
-        API-->>AdminUI: 빈 결과 반환
+        JSP-->>Operator: 빈 결과 표시
     else 오류 발생
-        API-->>AdminUI: 에러 응답 반환
+        Controller-->>JSP: 에러 메시지 전달
     else 정상 조회
-        API-->>AdminUI: 데이터 응답 반환
+        JSP-->>Operator: 데이터 표시
     end
 ```
 
@@ -27,34 +35,35 @@ sequenceDiagram
 
 ## 📌 흐름 설명
 
-운영자가 Admin UI를 통해 데이터를 조회하면,
-해당 요청은 REST API를 통해 백엔드 서버로 전달됩니다.
+운영자가 화면에서 데이터를 조회하면, 요청은 JSP를 통해 Controller로 전달됩니다.
 
-백엔드는 요청을 처리하여 데이터베이스에 조회 쿼리를 수행하고,
-그 결과를 다시 Admin UI로 반환합니다.
+Controller는 Service 계층에 비즈니스 로직 처리를 요청하고,
+Service는 DAO를 통해 데이터베이스에 접근하여 데이터를 조회합니다.
 
-이 구조는 전형적인 **클라이언트-서버 기반 데이터 조회 흐름**으로,
-운영자가 필요한 정보를 실시간으로 확인할 수 있도록 설계되었습니다.
+조회된 데이터는 다시 Controller로 전달되며,
+Controller는 해당 데이터를 Model에 담아 JSP로 전달합니다.
+
+JSP는 전달받은 데이터를 기반으로 화면을 렌더링하여 사용자에게 보여줍니다.
 
 ---
 
 ## 🧩 설계 의도
 
-* **계층 분리 (Layered Architecture)**
-  UI, API, DB를 명확히 분리하여 유지보수성과 확장성을 확보
+* **MVC 패턴 기반 구조**
+  Controller, Service, DAO 계층 분리를 통해 역할을 명확히 구분
 
-* **REST 기반 통신**
-  표준 HTTP 프로토콜을 사용하여 클라이언트와 서버 간 통신 단순화
+* **서버 사이드 렌더링 구조**
+  JSP를 활용하여 서버에서 직접 화면 생성
 
-* **단일 책임 원칙 적용**
-  각 계층은 자신의 역할(UI, 비즈니스 로직, 데이터 처리)에만 집중
+* **레이어드 아키텍처 적용**
+  각 계층이 독립적으로 역할 수행
 
 ---
 
 ## ⚠️ 고려 사항
 
-* 대량 데이터 조회 시 성능 저하 가능성
-* API 응답 시간 증가에 따른 사용자 경험 저하
-* 데이터 정합성 및 최신성 유지 필요
+* 서버 부하 증가 가능성 (SSR 구조 특성)
+* 화면과 비즈니스 로직 간 결합도 증가 가능성
+* 대량 데이터 조회 시 성능 이슈 발생 가능
 
-이에 따라 페이징 처리, 캐싱 전략, 쿼리 최적화 등의 추가 설계가 필요합니다.
+이에 따라 쿼리 최적화 및 페이징 처리 전략이 필요합니다.
