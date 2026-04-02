@@ -1,60 +1,69 @@
-# 데이터 흐름
+# Data Flow
 
-## 사용자 요청 흐름
+## User Request Flow
 
 ```mermaid
 sequenceDiagram
     participant Operator
-    participant AdminUI
-    participant API
+    participant JSP
+    participant Controller
+    participant Service
+    participant DAO
     participant DB
 
-    Operator->>AdminUI: 운영 데이터 조회 요청
-    AdminUI->>API: REST API 요청
-    API->>DB: 데이터 조회 쿼리 실행
-    DB-->>API: 조회 결과 반환
+    Operator->>JSP: Request page / data query
+    JSP->>Controller: Forward request
+    Controller->>Service: Process business logic
+    Service->>DAO: Request data access
+    DAO->>DB: Execute SQL query
+    DB-->>DAO: Return result
+    DAO-->>Service: Transfer data
+    Service-->>Controller: Return processed result
+    Controller-->>JSP: Pass Model data
+    JSP-->>Operator: Render view
 
-    alt 데이터 없음
-        API-->>AdminUI: 빈 결과 반환
-    else 오류 발생
-        API-->>AdminUI: 에러 응답 반환
-    else 정상 조회
-        API-->>AdminUI: 데이터 응답 반환
+    alt No Data
+        JSP-->>Operator: Display empty result
+    else Error Occurred
+        Controller-->>JSP: Return error message
+    else Success
+        JSP-->>Operator: Display data
     end
 ```
 
 ---
 
-## 📌 흐름 설명
+## 📌 Flow Description
 
-운영자가 Admin UI를 통해 데이터를 조회하면,
-해당 요청은 REST API를 통해 백엔드 서버로 전달됩니다.
+When an operator requests data through the UI, the request is handled by a JSP page and forwarded to the Controller.
 
-백엔드는 요청을 처리하여 데이터베이스에 조회 쿼리를 수행하고,
-그 결과를 다시 Admin UI로 반환합니다.
+The Controller delegates the request to the Service layer, where business logic is processed.
+The Service then interacts with the DAO layer to retrieve data from the database.
 
-이 구조는 전형적인 **클라이언트-서버 기반 데이터 조회 흐름**으로,
-운영자가 필요한 정보를 실시간으로 확인할 수 있도록 설계되었습니다.
+The retrieved data is passed back through the Service and Controller layers,
+and the Controller places the data into the Model.
 
----
-
-## 🧩 설계 의도
-
-* **계층 분리 (Layered Architecture)**
-  UI, API, DB를 명확히 분리하여 유지보수성과 확장성을 확보
-
-* **REST 기반 통신**
-  표준 HTTP 프로토콜을 사용하여 클라이언트와 서버 간 통신 단순화
-
-* **단일 책임 원칙 적용**
-  각 계층은 자신의 역할(UI, 비즈니스 로직, 데이터 처리)에만 집중
+Finally, the JSP renders the view using the provided data and returns it to the operator.
 
 ---
 
-## ⚠️ 고려 사항
+## 🧩 Design Principles
 
-* 대량 데이터 조회 시 성능 저하 가능성
-* API 응답 시간 증가에 따른 사용자 경험 저하
-* 데이터 정합성 및 최신성 유지 필요
+* **MVC Pattern**
+  The system follows a Model-View-Controller architecture to clearly separate responsibilities.
 
-이에 따라 페이징 처리, 캐싱 전략, 쿼리 최적화 등의 추가 설계가 필요합니다.
+* **Layered Architecture**
+  Each layer (Controller, Service, DAO) is responsible for a specific role.
+
+* **Server-Side Rendering**
+  JSP is used to generate views on the server, ensuring compatibility with legacy systems.
+
+---
+
+## ⚠️ Considerations
+
+* Increased server load due to server-side rendering
+* Potential coupling between view and business logic
+* Performance issues when handling large data sets
+
+To address these issues, pagination, query optimization, and caching strategies can be applied.
