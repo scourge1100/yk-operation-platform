@@ -57,4 +57,4 @@
 
 자세한 시스템 구조는 다음 문서를 참고한다.
 
-- [System Architecture](architecture.md)
+- [System Architecture](architecture.ko.md)
